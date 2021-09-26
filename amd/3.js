@@ -1,8 +1,5 @@
-//my/shirt.js now has some dependencies, a cart and inventory
-//module in the same directory as shirt.js
-/* */define(["./cart", "./inventory"], function(cart, inventory) {//
-    //return an object to define the "my/shirt" module.
-/* */return {
+/*define>*/define(["./cart", "./inventory"], function(cart, inventory) {/*<function*/
+/*return>*/return/*<return*/ {
         color: "blue",
         size: "large",
         addToCart: function() {
@@ -10,5 +7,5 @@
             cart.add(this);
         }
     }
-}
-);// more comments
+/*function>*/}
+);/*<define*/

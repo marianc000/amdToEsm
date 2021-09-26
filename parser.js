@@ -1,19 +1,6 @@
 import * as acorn from "acorn";
 import * as walk from "acorn-walk";
-
-
-// console.log("read: ", txt);
-// console.log("========================================================");
-
-// console.log(tree);
-// console.log("========================================================");
-// walk.simple(tree, {
-//     CallExpression(node) {
-//         console.log(">>>>>>>>>>>>>>found");  
-//       console.log(node);
-//     }
-//   })
-//   console.log("========================================================");
+ 
 function predicate(nodeType, node) {
   return nodeType === 'ExpressionStatement' && node?.expression?.callee?.name === 'define';
 }
@@ -42,4 +29,12 @@ export function pathsAndParams({ node }) {
   const vars = func.params.map(p => p.name);
   return { paths, vars, start, end ,ret};
 }
+
+export function getDefineData(js){
+  const exp = findDefine(js);
+  if (!exp)throw 'No define()';
+  return pathsAndParams(exp);
+}
+
+
 
