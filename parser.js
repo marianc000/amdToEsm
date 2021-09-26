@@ -1,6 +1,9 @@
 import * as acorn from "acorn";
 import * as walk from "acorn-walk";
- 
+import { convert as fromObject } from './defineArguments/object.js';
+import { convert as fromFunction } from './defineArguments/funcsion.js';
+import { convert as fromArrayAndFunction } from './defineArguments/arrayAndFunction.js';
+
 function predicate(nodeType, node) {
   return nodeType === 'ExpressionStatement' && node?.expression?.callee?.name === 'define';
 }
@@ -10,30 +13,26 @@ export function findDefine(txt) {
   return walk.findNodeAt(tree, null, null, predicate);
 }
 
-export function pathsAndParams({ node }) {
+export function choseConverter(js, node) {
   //console.log(">",node);
-  const start = { s: node.start };
-  const end = { e: node.end };
-
   const args = node.expression.arguments;
-  //console.log(">",args);
-  if (!args) return;
-  if (args.length != 2) throw 'Not two arguments in define';
-  const [ar, func] = args;
-  const funcBody = func.body;
-  end.s = funcBody.end;
-  start.e = funcBody.start;
-  const ret = funcBody.body.find(s => s.type === 'ReturnStatement')?.start;
+  //console.log(">", args);
+  if (args.length === 1) {
+    if (args[0].type === 'ObjectExpression') return fromObject(js, node);
+    if (args[0].type === 'FunctionExpression') return fromFunction(js, node);
+  }
 
-  const paths = ar.elements.map(el => el.value);
-  const vars = func.params.map(p => p.name);
-  return { paths, vars, start, end ,ret};
+  if (args.length === 2
+    && args[0].type === 'ArrayExpression'
+    && args[1].type === 'FunctionExpression') return fromArrayAndFunction(js, node);
+  
+    throw 'Unsupported define arguments';
 }
 
-export function getDefineData(js){
+export function convert(js) {
   const exp = findDefine(js);
-  if (!exp)throw 'No define()';
-  return pathsAndParams(exp);
+  if (!exp) throw 'No define()';
+  return choseConverter(js, exp.node);
 }
 
 

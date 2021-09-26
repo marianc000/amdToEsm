@@ -1,10 +1,6 @@
-//my/shirt.js now does setup work
-//before returning its module definition.
-define(function () {
-    //Do setup work here
-
-    return {
+/*define>*/define(function () {/*<function*/
+    /*return>*/return/*<return*/ {
         color: "black",
         size: "unisize"
     }
-});
+/*function>*/});/*<define*/

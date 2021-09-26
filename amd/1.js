@@ -1,5 +1,4 @@
-//Inside file my/shirt.js:
-define({
+/*define>*/define(/*<define*/{
     color: "black",
     size: "unisize"
-});
+}/*define>*/);/*<define*/

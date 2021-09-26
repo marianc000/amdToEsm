@@ -9,5 +9,5 @@ export function getImport(v, sp) {
 }
 
 export function toImports(paths, vars) {
-    return paths.map((s, i) => getImport(vars[i], s)).join('\n');
+    return paths.map((s, i) => getImport(vars[i], s)).join('\r\n');
 }
