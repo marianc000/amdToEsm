@@ -34,6 +34,3 @@ export function convert(js) {
   if (!exp) throw 'No define()';
   return choseConverter(js, exp.node);
 }
-
-
-

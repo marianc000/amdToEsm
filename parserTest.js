@@ -1,15 +1,20 @@
+import { strictEqual } from 'assert/strict';
 import { loadFile } from './fileUtils.js';
-import { getDefineData } from './parser.js';
-let js;
-let r;
+import { convert } from './parser.js';
+
+let js,js2,ref;
 
 js = await loadFile('./amd/1.js');
-r = getDefineData(js);
-console.log(JSON.stringify(r));
+ref = await loadFile('./amd/1.out.js');
+js2 = convert(js);
+strictEqual(ref, js2);
+
+js = await loadFile('./amd/2.js');
+ref = await loadFile('./amd/2.out.js');
+js2 = convert(js);
+strictEqual(ref, js2);
 
 js = await loadFile('./amd/3.js');
-
-r = getDefineData(js)
-//console.log(JSON.stringify(r));
-
-console.assert(JSON.stringify(r) === '{"paths":["./cart","./inventory"],"vars":["cart","inventory"],"start":{"s":11,"e":71},"end":{"e":305,"s":301},"ret":98}');
+ref = await loadFile('./amd/3.out.js');
+js2 = convert(js);
+strictEqual(ref, js2);

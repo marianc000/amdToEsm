@@ -1,4 +1,5 @@
-import './importsTest.js';
+import './defineArguments/arrayAndFunctionTest.js';
+import './defineArguments/funcsionTest.js';
+import './defineArguments/objectTest.js';
+import './defineArguments/utils/importsTest.js';
 import './parserTest.js';
-import './processTest.js';
-import './objectArgumentTest.js';

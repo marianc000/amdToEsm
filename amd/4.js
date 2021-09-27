@@ -13,5 +13,5 @@ define(["my/cart", "my/inventory"],
             return title ? (window.title = title) :
                    inventory.storeName + ' ' + cart.name;
         }
-    }
+    /*function>*/}
 );
