@@ -8,9 +8,9 @@ function predicate(nodeType, node) {
   return nodeType === 'ExpressionStatement' && node?.expression?.callee?.name === 'define';
 }
 
-export function findDefine(txt) {
-  let tree = acorn.parse(txt, { ecmaVersion: 2020 });
-  return walk.findNodeAt(tree, null, null, predicate);
+export function findOutermostDefine(txt) {
+  let tree = acorn.parse(txt, { ecmaVersion: 2022 });
+  return walk.findNodeBefore(tree, Number.MAX_VALUE , predicate) ;
 }
 
 export function choseConverter(js, node) {
@@ -30,7 +30,7 @@ export function choseConverter(js, node) {
 }
 
 export function convert(js) {
-  const exp = findDefine(js);
+  const exp = findOutermostDefine(js);
   if (!exp) throw 'No define()';
   return choseConverter(js, exp.node);
 }

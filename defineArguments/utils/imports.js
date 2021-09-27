@@ -11,8 +11,8 @@ export function getImport(v, sp) {
         return text(v, sp.replace(TEXT_PLUGIN_PREFIX,''));
     }
 
-    if (sp.startsWith('.')) sp += '.js';
-
+   // if (sp.startsWith('.')) sp += '.js';
+    if (sp.includes('/')) sp += '.js'; // do not add .js only to bare specifiers
     if (v)
         return `import ${v} from '${sp}';`;
     else
