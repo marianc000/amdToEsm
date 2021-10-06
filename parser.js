@@ -3,16 +3,17 @@ import * as walk from "acorn-walk";
 import { convert as fromObject } from './defineArguments/object.js';
 import { convert as fromFunction } from './defineArguments/funcsion.js';
 import { convert as fromArrayAndFunction } from './defineArguments/arrayAndFunction.js';
+import { convert as fromArrayAndFunctionNamed } from './defineArguments/arrayAndFunctionNamed.js';
 
 function predicate(nodeType, node) {
   return nodeType === 'ExpressionStatement' && node?.expression?.callee?.name === 'define';
 }
-
+ 
 export function findOutermostDefine(txt) {
   let tree = acorn.parse(txt, { ecmaVersion: 2022 });
   return walk.findNodeBefore(tree, Number.MAX_VALUE , predicate) ;
 }
-
+ 
 export function choseConverter(js, node) {
   //console.log(">",node);
   const args = node.expression.arguments;
@@ -26,6 +27,11 @@ export function choseConverter(js, node) {
     && args[0].type === 'ArrayExpression'
     && args[1].type === 'FunctionExpression') return fromArrayAndFunction(js, node);
   
+    if (args.length === 3
+      && args[0].type === 'Literal'
+      && args[1].type === 'ArrayExpression'
+      && args[2].type === 'FunctionExpression') return fromArrayAndFunctionNamed(js, node);  
+
     throw 'Unsupported define arguments';
 }
 

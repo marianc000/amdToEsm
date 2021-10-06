@@ -22,3 +22,8 @@ strictEqual(ref, js2);
 js = await loadFile('./amd/Squire.js');
 let exp=findOutermostDefine(js);
 strictEqual(0, exp.node.start);
+
+js = await loadFile('./amd/jquery.js');
+  ref = await loadFile('./amd/jquery.out.js');
+ js2 = convert(js );
+strictEqual(js2,ref);

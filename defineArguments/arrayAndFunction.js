@@ -2,10 +2,8 @@
 import { removeDefine } from './funcsion.js';
 import { toImports } from './utils/imports.js';
 
+export function convertShared(js, node, ar, func) {
 
-export function convert(js, node) {
-
-  const [ar, func] = node.expression.arguments;
   const funcBody = func.body;
 
   let js2 = removeDefine(js, node, funcBody);
@@ -18,4 +16,7 @@ export function convert(js, node) {
   return imports + '\r\n\r\n' + js2;
 }
 
-
+export function convert(js, node) {
+  const [ar, func] = node.expression.arguments;
+  return convertShared(js, node, ar, func);
+}

@@ -1,19 +1,20 @@
 import { convert } from './parser.js';
 import { writeFile, readFile } from 'fs/promises';
-import { walk } from './utils/walk.js';
- 
+import { findJsFiles } from './utils/walk.js';
+
 async function main(dir) {
     console.log(">looking in:", dir);
-    for await (const p of walk(dir, ".js")) {
-        console.log(p);
+    const files = findJsFiles(dir);
+
+    for (const file of files) {
+        console.log('>',file);
         try {
-            let js = await readFile(p, { encoding: 'utf8' });
+            let js = await readFile(file, { encoding: 'utf8' });
             let js2 = convert(js);
-            console.log(js.length, '=>', js2.length);
-            await writeFile(p, js2);
+            await writeFile(file, js2);
         } catch (ex) {
             if (ex === "No define()")
-                console.log('skipped ', p);
+                console.log('skipped ', file);
             else
                 throw ex;
         }
