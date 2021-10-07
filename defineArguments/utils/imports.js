@@ -19,6 +19,6 @@ export function getImport(v, sp) {
         return `import '${sp}';`;
 }
 
-export function toImports(paths, vars) {
+export function toImports(paths, vars=[]) {
     return paths.map((s, i) => getImport(vars[i], s)).join('\r\n');
 }

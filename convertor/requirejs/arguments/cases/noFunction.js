@@ -1,0 +1,1 @@
+/*requirejs>*/requirejs(['app/main1']);/*<requirejs*/
