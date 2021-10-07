@@ -1,6 +1,3 @@
-
-import { removeDefine } from './funcsion.js';
-import { toImports } from './utils/imports.js';
 import { convertShared} from './arrayAndFunction.js';
 
 export function convert(js, node) {

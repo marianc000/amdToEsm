@@ -1,14 +1,10 @@
 import * as acorn from "acorn";
 import * as walk from "acorn-walk";
-import { convert as fromObject } from './defineArguments/object.js';
-import { convert as fromFunction } from './defineArguments/funcsion.js';
-import { convert as fromArrayAndFunction } from './defineArguments/arrayAndFunction.js';
-import { convert as fromArrayAndFunctionNamed } from './defineArguments/arrayAndFunctionNamed.js';
+import { convert as fromObject } from './convertor/define/arguments/object.js';
+import { convert as fromFunction } from './convertor/define/arguments/funcsion.js';
+import { convert as fromArrayAndFunction } from './convertor/define/arguments/arrayAndFunction.js';
+import { convert as fromArrayAndFunctionNamed } from './convertor/define/arguments/arrayAndFunctionNamed.js';
 import {choseRequireJsConverter} from './convertor/requirejs/choose.js';
-
-function predicateDefine(nodeType, node) {
-  return nodeType === 'ExpressionStatement' && node?.expression?.callee?.name === 'define';
-}
 
 
 
@@ -16,9 +12,6 @@ export function toAst(txt) {
   return acorn.parse(txt, { ecmaVersion: 2022 });
 }
 
-export function findOutermostDefine(ast) {
-  return walk.findNodeBefore(ast, Number.MAX_VALUE, predicateDefine);
-}
 
 
 
@@ -36,26 +29,6 @@ export function findAllRequirejs(ast) {
 
 
 
-export function choseDefineConverter(js, node) {
-  //console.log(">",node);
-  const args = node.expression.arguments;
-  //console.log(">", args);
-  if (args.length === 1) {
-    if (args[0].type === 'ObjectExpression') return fromObject(js, node);
-    if (args[0].type === 'FunctionExpression') return fromFunction(js, node);
-  }
-
-  if (args.length === 2
-    && args[0].type === 'ArrayExpression'
-    && args[1].type === 'FunctionExpression') return fromArrayAndFunction(js, node);
-
-  if (args.length === 3
-    && args[0].type === 'Literal'
-    && args[1].type === 'ArrayExpression'
-    && args[2].type === 'FunctionExpression') return fromArrayAndFunctionNamed(js, node);
-
-  throw 'Unsupported define arguments';
-}
 
 export function convert(js) {
   const ast = toAst(js);

@@ -1,8 +1,5 @@
- 
- 
-import { splice} from '../utils/strUtils.js';
-import { toImports } from '../defineArguments/utils/imports.js';
-
+import { splice} from './strUtils.js';
+import { toImports } from './imports.js';
 
 export function removeFunction(js, node, funcBody) {
     let js2 = splice(js, funcBody.end - 1, node.end);

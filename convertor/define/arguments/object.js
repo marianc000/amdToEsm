@@ -1,4 +1,4 @@
-import { splice } from '../utils/strUtils.js';
+import { splice } from '../../utils/strUtils.js';
 
 export function convert(js, node) {
  // console.log(">objectArgument", node);

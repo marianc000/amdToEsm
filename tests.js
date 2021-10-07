@@ -1,7 +1,11 @@
-import './defineArguments/arrayAndFunctionTest.js';
-import './defineArguments/arrayAndFunctionNamedTest.js';
-import './defineArguments/funcsionTest.js';
-import './defineArguments/objectTest.js';
-import './defineArguments/utils/importsTest.js';
-import './parserTest.js';
+import './convertor/define/arguments/arrayAndFunction.js';
+import './convertor/define/arguments/arrayAndFunctionNamedTest.js';
+import './convertor/define/arguments/funcsionTest.js';
+import './convertor/define/arguments/objectTest.js';
+import './convertor/utils/importsTest.js';
+import './convertor/requirejs/arguments/arrayTest.js';
+import './convertor/requirejs/arguments/arrayAndFunctionTest.js';
+
+
+//import './parserTest.js';
 import './utils/walkTest.js';
