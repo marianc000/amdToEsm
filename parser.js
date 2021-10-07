@@ -1,41 +1,53 @@
 import * as acorn from "acorn";
-import * as walk from "acorn-walk";
-import { convert as fromObject } from './convertor/define/arguments/object.js';
-import { convert as fromFunction } from './convertor/define/arguments/funcsion.js';
-import { convert as fromArrayAndFunction } from './convertor/define/arguments/arrayAndFunction.js';
-import { convert as fromArrayAndFunctionNamed } from './convertor/define/arguments/arrayAndFunctionNamed.js';
-import {choseRequireJsConverter} from './convertor/requirejs/choose.js';
 
-
+import { choseRequireJsConverter } from './convertor/requirejs/choose.js';
+import { choseDefineConverter } from './convertor/define/choose.js';
+import { findOutermostRequirejs } from './convertor/requirejs/find.js';
+import { findOutermostDefine } from './convertor/define/find.js';
 
 export function toAst(txt) {
   return acorn.parse(txt, { ecmaVersion: 2022 });
 }
 
-
-
-
-export function findAllRequirejs(ast) {
-  const nodes = [];
-  let from = 0;
-  let exp;
-  while (exp = walk.findNodeAfter(ast, from, predicateRequirejs)) {
-    nodes.push(exp);
-    from = exp.node.start + 1;
-  }
-  //console.log(nodes);
-  return nodes;
+export function toAst2(txt) {
+  return acorn.parse(txt, { ecmaVersion: 2022, sourceType: "module" });
 }
 
 
-
+// export function findAllRequirejs(ast) {
+//   const nodes = [];
+//   let from = 0;
+//   let exp;
+//   while (exp = walk.findNodeAfter(ast, from, predicateRequirejs)) {
+//     nodes.push(exp);
+//     from = exp.node.start + 1;
+//   }
+//   //console.log(nodes);
+//   return nodes;
+// }
 
 export function convert(js) {
-  const ast = toAst(js);
+  //console.log(">convert", js);
+  let ast = toAst(js);
+  let js2;
   let exp = findOutermostDefine(ast);
-  if (exp) return choseDefineConverter(js, exp.node);
+  if (exp)
+    js2 = choseDefineConverter(js, exp.node);
+  else {
+    exp = findOutermostRequirejs(ast);
+    if (exp)
+      js2 = choseRequireJsConverter(js, exp.node);
+  }
 
-  exp = findOutermostRequirejs(ast);
-  if (exp) choseRequireJsConverter(js, exp);
-  throw 'No define()';
+  if (!js2) throw 'No define()';
+  try {
+    let ast2 = toAst2(js2);
+    let exp2 = findOutermostRequirejs(ast2);
+    if (!exp2) return js2;
+    return choseRequireJsConverter(js2, exp2.node);
+  } catch (ex) {
+    //console.log("ex=",ex.message,"<<<");
+    if (ex.message?.startsWith("'import' and 'export' may only appear at the top level")) return js2; //like in jquery
+    throw ex;
+  }
 }

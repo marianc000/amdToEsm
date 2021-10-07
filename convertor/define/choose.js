@@ -1,5 +1,10 @@
+import { convert as fromObject } from './arguments/object.js';
+import { convert as fromFunction } from './arguments/funcsion.js';
+import { convert as fromArrayAndFunction } from './arguments/arrayAndFunction.js';
+import { convert as fromArrayAndFunctionNamed } from './arguments/arrayAndFunctionNamed.js';
+
 export function choseDefineConverter(js, node) {
-  //console.log(">",node);
+  // console.log(">",node);
   const args = node.expression.arguments;
   //console.log(">", args);
   if (args.length === 1) {

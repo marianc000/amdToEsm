@@ -1,36 +1,44 @@
 import { strictEqual } from 'assert/strict';
-import { loadFile } from './fileUtils.js';
-import { convert, findOutermostDefine, toAst, findAllRequirejs } from './parser.js';
+import { loadFile } from './convertor/utils/fileUtils.js';
+import { convert, toAst } from './parser.js';
 
 let js, js2, ref;
 
-// js = await loadFile('./amd/1.js');
-// ref = await loadFile('./amd/1.out.js');
-// js2 = convert(js);
-// strictEqual(ref, js2);
+js = await loadFile('./convertor/define/arguments/cases/1.js', import.meta.url);
+ref = await loadFile('./convertor/define/arguments/cases/1.out.js', import.meta.url);
 
-// js = await loadFile('./amd/2.js');
-// ref = await loadFile('./amd/2.out.js');
-// js2 = convert(js);
-// strictEqual(ref, js2);
+js2 = convert(js);
+strictEqual(ref, js2);
 
-// js = await loadFile('./amd/3.js');
-// ref = await loadFile('./amd/3.out.js');
-// js2 = convert(js);
-// strictEqual(ref, js2);
+js = await loadFile('./convertor/define/arguments/cases/2.js', import.meta.url);
+ref = await loadFile('./convertor/define/arguments/cases/2.out.js', import.meta.url);
+js2 = convert(js);
+strictEqual(ref, js2);
 
-// js = await loadFile('./amd/Squire.js');
-// let exp=findOutermostDefine(js);
-// strictEqual(0, exp.node.start);
+js = await loadFile('./convertor/define/arguments/cases/3.js', import.meta.url);
+ref = await loadFile('./convertor/define/arguments/cases/3.out.js', import.meta.url);
+js2 = convert(js);
+strictEqual(ref, js2);
 
-// js = await loadFile('./amd/jquery.js');
-//   ref = await loadFile('./amd/jquery.out.js');
-//  js2 = convert(js );
-// strictEqual(js2,ref);
 
-js = await loadFile('./amd/requirejsNested.js');
-let ast= toAst(js);
-let exp = findOutermostDefine(ast);
-console.log(exp);
-exp = findAllRequirejs(ast);
- console.log(exp);
+
+js = await loadFile('./convertor/define/arguments/cases/jquery.js', import.meta.url);
+ref = await loadFile('./convertor/define/arguments/cases/jquery.out.js', import.meta.url);
+js2 = convert(js);
+strictEqual(js2, ref);
+
+js = await loadFile('./convertor/requirejs/arguments/cases/requirejsNested.js', import.meta.url);
+ref = await loadFile('./convertor/requirejs/arguments/cases/requirejsNested.out.js', import.meta.url);
+js2 = convert(js);
+strictEqual(js2, ref);
+
+js = await loadFile('./convertor/requirejs/arguments/cases/noFunction.js', import.meta.url);
+ref = await loadFile('./convertor/requirejs/arguments/cases/noFunction.out.js', import.meta.url);
+js2 = convert(js );
+strictEqual(ref, js2);
+
+js = await loadFile('./convertor/requirejs/arguments/cases/arrayAndFunction.js', import.meta.url);
+ref = await loadFile('./convertor/requirejs/arguments/cases/arrayAndFunction.out.js', import.meta.url);
+js2 = convert(js);
+strictEqual(ref, js2);
+ //console.log(js2);

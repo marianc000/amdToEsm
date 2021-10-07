@@ -5,7 +5,6 @@ import './convertor/define/arguments/objectTest.js';
 import './convertor/utils/importsTest.js';
 import './convertor/requirejs/arguments/arrayTest.js';
 import './convertor/requirejs/arguments/arrayAndFunctionTest.js';
-
-
-//import './parserTest.js';
+import './convertor/define/findTest.js';
+import './parserTest.js';
 import './utils/walkTest.js';
