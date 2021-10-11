@@ -1,9 +1,9 @@
 import * as acorn from "acorn";
 
-import { choseRequireJsConverter } from './convertor/requirejs/choose.js';
-import { choseDefineConverter } from './convertor/define/choose.js';
-import { findOutermostRequirejs } from './convertor/requirejs/find.js';
-import { findOutermostDefine } from './convertor/define/find.js';
+import { choseRequireJsConverter } from './requirejs/choose.js';
+import { choseDefineConverter } from './define/choose.js';
+import { findOutermostRequirejs } from './requirejs/find.js';
+import { findOutermostDefine } from './define/find.js';
 
 export function toAst(txt) {
   return acorn.parse(txt, { ecmaVersion: 2022 });

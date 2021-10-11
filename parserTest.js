@@ -1,44 +1,18 @@
 import { strictEqual } from 'assert/strict';
-import { loadFile } from './convertor/utils/fileUtils.js';
+import { loadFile } from 'utils/fileUtils.js';
 import { convert, toAst } from './parser.js';
 
-let js, js2, ref;
+async function test(srcUrl, refUrl) {
+    const js = await loadFile(srcUrl, import.meta.url);
+    const ref = await loadFile(refUrl, import.meta.url);
+    const js2 = convert(js);
+    strictEqual(js2, ref);
+}
 
-js = await loadFile('./convertor/define/arguments/cases/1.js', import.meta.url);
-ref = await loadFile('./convertor/define/arguments/cases/1.out.js', import.meta.url);
-
-js2 = convert(js);
-strictEqual(ref, js2);
-
-js = await loadFile('./convertor/define/arguments/cases/2.js', import.meta.url);
-ref = await loadFile('./convertor/define/arguments/cases/2.out.js', import.meta.url);
-js2 = convert(js);
-strictEqual(ref, js2);
-
-js = await loadFile('./convertor/define/arguments/cases/3.js', import.meta.url);
-ref = await loadFile('./convertor/define/arguments/cases/3.out.js', import.meta.url);
-js2 = convert(js);
-strictEqual(ref, js2);
-
-
-
-js = await loadFile('./convertor/define/arguments/cases/jquery.js', import.meta.url);
-ref = await loadFile('./convertor/define/arguments/cases/jquery.out.js', import.meta.url);
-js2 = convert(js);
-strictEqual(js2, ref);
-
-js = await loadFile('./convertor/requirejs/arguments/cases/requirejsNested.js', import.meta.url);
-ref = await loadFile('./convertor/requirejs/arguments/cases/requirejsNested.out.js', import.meta.url);
-js2 = convert(js);
-strictEqual(js2, ref);
-
-js = await loadFile('./convertor/requirejs/arguments/cases/noFunction.js', import.meta.url);
-ref = await loadFile('./convertor/requirejs/arguments/cases/noFunction.out.js', import.meta.url);
-js2 = convert(js );
-strictEqual(ref, js2);
-
-js = await loadFile('./convertor/requirejs/arguments/cases/arrayAndFunction.js', import.meta.url);
-ref = await loadFile('./convertor/requirejs/arguments/cases/arrayAndFunction.out.js', import.meta.url);
-js2 = convert(js);
-strictEqual(ref, js2);
- //console.log(js2);
+await test('./define/arguments/cases/1.js', './define/arguments/cases/1.out.js');
+await test('./define/arguments/cases/2.js', './define/arguments/cases/2.out.js');
+await test('./define/arguments/cases/3.js', './define/arguments/cases/3.out.js');
+await test('./define/arguments/cases/jquery.js', './define/arguments/cases/jquery.out.js');
+await test('./requirejs/arguments/cases/requirejsNested.js', './requirejs/arguments/cases/requirejsNested.out.js');
+await test('./requirejs/arguments/cases/noFunction.js', './requirejs/arguments/cases/noFunction.out.js');
+await test('./requirejs/arguments/cases/arrayAndFunction.js', './requirejs/arguments/cases/arrayAndFunction.out.js');

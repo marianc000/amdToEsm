@@ -1,8 +1,8 @@
 import { strictEqual } from 'assert/strict';
-import { loadFile } from '../../utils/fileUtils.js';
+import { loadFile } from 'utils/fileUtils.js';
 import { findOutermostDefine } from '../find.js';
 import { convert } from './arrayAndFunctionNamed.js';
-import {  toAst } from '../../../parser.js';
+import {  toAst } from '../../parser.js';
 
 let js = await loadFile('./cases/jquery.js',import.meta.url);
 let ref = await loadFile('./cases/jquery.out.js',import.meta.url);

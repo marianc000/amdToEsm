@@ -12,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "acorn": "^8.5.0",
-    "acorn-walk": "^8.2.0" 
+    "acorn-walk": "^8.2.0",
+    "utils": "file:utils"
   }
 }
