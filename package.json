@@ -13,6 +13,8 @@
   "dependencies": {
     "acorn": "^8.5.0",
     "acorn-walk": "^8.2.0",
+    "define": "file:define",
+    "requirejs": "file:requirejs",
     "utils": "file:utils"
   }
 }

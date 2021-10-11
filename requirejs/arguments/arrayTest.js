@@ -1,6 +1,6 @@
 import { strictEqual } from 'assert/strict';
 import { loadFile } from 'utils/fileUtils.js';
-import { toAst } from '../../../parser.js';
+import { toAst } from '../../parser.js';
 
 import { findOutermostRequirejs } from '../find.js';
 import { convert } from './array.js';
