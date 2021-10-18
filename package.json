@@ -1,20 +1,28 @@
 {
-  "name": "ast",
+  "name": "amd2esm",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "type": "module",
+  "type":"module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node tests.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "acorn": "^8.5.0",
-    "acorn-walk": "^8.2.0",
-    "define": "file:define",
-    "requirejs": "file:requirejs",
-    "utils": "file:utils"
-  }
+    "acorn-walk": "^8.2.0"
+  },
+  "imports": {
+    "#root/*": {
+      "default": "./*"
+    },
+    "#define/*": {
+      "default": "./define/*"
+    },
+    "#requirejs/*": {
+      "default": "./requirejs/*"
+    },
+    "#utils/*": {
+      "default": "./utils/*"
+    }
+
+  } 
+ 
 }

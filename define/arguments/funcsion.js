@@ -1,4 +1,4 @@
-import { splice } from 'utils/strUtils.js';
+import { splice } from '#utils/strUtils.js';
 
 export function removeDefine(js, node, funcBody) {
   let js2 = splice(js, funcBody.end - 1, node.end);

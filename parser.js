@@ -1,4 +1,4 @@
-import * as acorn from "acorn";
+import { parse } from "acorn";
 
 import { choseRequireJsConverter } from './requirejs/choose.js';
 import { choseDefineConverter } from './define/choose.js';
@@ -6,11 +6,11 @@ import { findOutermostRequirejs } from './requirejs/find.js';
 import { findOutermostDefine } from './define/find.js';
 
 export function toAst(txt) {
-  return acorn.parse(txt, { ecmaVersion: 2022 });
+  return parse(txt, { ecmaVersion: 2022 });
 }
 
 export function toAst2(txt) {
-  return acorn.parse(txt, { ecmaVersion: 2022, sourceType: "module" });
+  return parse(txt, { ecmaVersion: 2022, sourceType: "module" });
 }
 
 

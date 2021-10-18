@@ -1,5 +1,5 @@
 
-import { replace } from 'utils/strUtils.js';
+import { replace } from '#utils/strUtils.js';
 
 export function removeRequirejs(js, node, ar) {
 

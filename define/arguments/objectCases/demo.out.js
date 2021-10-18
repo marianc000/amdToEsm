@@ -1,5 +1,5 @@
 
-export default{
+export default {
     color: "black",
     size: "unisize"
 }

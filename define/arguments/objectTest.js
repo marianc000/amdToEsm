@@ -1,8 +1,8 @@
 import { strictEqual } from 'assert/strict';
-import { loadFile } from 'utils/fileUtils.js';
+import { loadFile } from '#utils/fileUtils.js';
 import { findOutermostDefine } from '../find.js';
 import { convert } from './object.js';
-import { toAst } from '../../parser.js';
+import { toAst } from '#root/parser.js';
 
 async function test(srcUrl, refUrl){
     let js = await loadFile(srcUrl, import.meta.url);
@@ -13,6 +13,6 @@ async function test(srcUrl, refUrl){
     strictEqual(ref, js2);
 }
 
-await test('./cases/1.js','./cases/1.out.js' );
-await test('./cases/1.1.js','./cases/1.1.out.js' );
+await test('./objectCases/1.js','./objectCases/1.out.js' );
+await test('./objectCases/demo.js','./objectCases/demo.out.js' );
  

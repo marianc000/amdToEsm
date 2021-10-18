@@ -1,5 +1,5 @@
 import { removeDefine } from './funcsion.js';
-import { toImports } from 'utils/imports.js';
+import { toImports } from '#utils/imports.js';
 
 export function convertShared(js, node, ar, func) {
 
