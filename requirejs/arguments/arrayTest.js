@@ -1,13 +1,6 @@
-import { strictEqual } from 'assert/strict';
-import { loadFile } from '#utils/fileUtils.js';
-import { toAst } from '#root/parser.js';
-
-import { findOutermostRequirejs } from '../find.js';
 import { convert } from './array.js';
+import { createTest } from './requirejsTestCommon.js';
 
-let js = await loadFile('./cases/noFunction.js',import.meta.url);
-let ast = toAst(js);
-let ref = await loadFile('./cases/noFunction.out.js',import.meta.url);
-let exp = findOutermostRequirejs(ast);
-let js2 = convert(js, exp.node);
-strictEqual(ref, js2);
+const test = createTest(convert,import.meta.url);
+await test('./arrayOnlyCases/noFunction.js', './arrayOnlyCases/noFunction.out.js');
+await test('./arrayOnlyCases/demo.js', './arrayOnlyCases/demo.out.js');
