@@ -13,21 +13,7 @@ export function toAst2(txt) {
   return parse(txt, { ecmaVersion: 2022, sourceType: "module" });
 }
 
-
-// export function findAllRequirejs(ast) {
-//   const nodes = [];
-//   let from = 0;
-//   let exp;
-//   while (exp = walk.findNodeAfter(ast, from, predicateRequirejs)) {
-//     nodes.push(exp);
-//     from = exp.node.start + 1;
-//   }
-//   //console.log(nodes);
-//   return nodes;
-// }
-
 export function convert(js) {
-  //console.log(">convert", js);
   let ast = toAst(js);
   let js2;
   let exp = findOutermostDefine(ast);
@@ -46,7 +32,6 @@ export function convert(js) {
     if (!exp2) return js2;
     return choseRequireJsConverter(js2, exp2.node);
   } catch (ex) {
-    //console.log("ex=",ex.message,"<<<");
     if (ex.message?.startsWith("'import' and 'export' may only appear at the top level")) return js2; //like in jquery
     throw ex;
   }

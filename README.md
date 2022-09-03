@@ -1,4 +1,5 @@
-# Important difference between standard HTML tables and div tables
-And a critical difference between div tables
+# How to migrate AMD to ES modules
+Forget about AMD forever, there is no good reason for using AMD anymore
 
-Sample code for my post https://marian-caikovski.medium.com/important-difference-between-standard-html-tables-and-div-tables-b6b094ec2c79 comparing performance of standard HTML tables and div tables
+The tool for migration of AMD modules into native ES6 modules is described in  https://marian-caikovski.medium.com/important-difference-between-standard-html-tables-and-div-tables-b6b094ec2c79 
+

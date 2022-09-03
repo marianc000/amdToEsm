@@ -21,10 +21,6 @@ async function main(dir) {
     }
 }
 
-process.argv.forEach(function (val, index, array) {
-    console.log(index + ': ' + val);
-});
-
 if (process.argv.length > 2) {
     main(process.argv[2]);
 }

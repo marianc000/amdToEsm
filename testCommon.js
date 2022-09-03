@@ -10,7 +10,6 @@ export function createTestParent(convert, find,parentUrl) {
         let ast = toAst(js);
         let exp = find(ast);
         let js2 = convert(js, exp.node);
-        //  console.log(">" + js2 + "<");
         strictEqual(js2, ref);
     };
 }

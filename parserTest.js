@@ -6,7 +6,6 @@ async function test(srcUrl, refUrl) {
     const js = await loadFile(srcUrl, import.meta.url);
     const ref = await loadFile(refUrl, import.meta.url);
     const js2 = convert(js);
-    //console.log(">"+js2+"<");
     strictEqual(js2, ref);
 }
 

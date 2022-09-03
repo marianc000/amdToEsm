@@ -4,9 +4,8 @@ import { convert as fromArrayAndFunction } from './arguments/arrayAndFunction.js
 import { convert as fromArrayAndFunctionNamed } from './arguments/arrayAndFunctionNamed.js';
 
 export function choseDefineConverter(js, node) {
-  // console.log(">",node);
   const args = node.expression.arguments;
-  //console.log(">", args);
+  
   if (args.length === 1) {
     if (args[0].type === 'ObjectExpression') return fromObject(js, node);
     if (args[0].type === 'FunctionExpression') return fromFunction(js, node);
